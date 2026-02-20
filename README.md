@@ -68,6 +68,103 @@ data/
     neutral/
 ```
 
+## End-to-End: Download Dataset, Train, and Use
+
+Follow this sequence if you are starting from scratch.
+
+### 1) Install dependencies
+
+```bash
+pip install torch torchvision opencv-python pillow numpy
+```
+
+Optional face detector backend:
+
+```bash
+pip install mediapipe
+```
+
+### 2) Download and prepare dataset
+
+Recommended dataset: **FER2013** from Kaggle:
+
+- https://www.kaggle.com/datasets/msambare/fer2013
+
+After downloading/extracting, organize images into this ImageFolder format:
+
+```text
+data/
+  train/
+    angry/
+    disgust/
+    fear/
+    happy/
+    sad/
+    surprise/
+    neutral/
+  val/
+    angry/
+    disgust/
+    fear/
+    happy/
+    sad/
+    surprise/
+    neutral/
+```
+
+Notes:
+
+- Class folder names must match the 7 emotion labels above.
+- If your download does not come pre-split into `train` and `val`, create a split yourself (e.g., 80/20 stratified split).
+
+### 3) Train the emotion model
+
+Example command:
+
+```bash
+python train.py --data-dir ./data --epochs 20 --batch-size 64 --backbone resnet18
+```
+
+Alternative backbone:
+
+```bash
+python train.py --data-dir ./data --epochs 20 --batch-size 64 --backbone efficientnet_b0
+```
+
+What the script does:
+
+- Loads data from `data/train` and `data/val`
+- Applies augmentation on train images
+- Trains with CrossEntropy + Adam
+- Saves the best validation checkpoint to:
+
+```text
+checkpoints/best_emotion_model.pt
+```
+
+### 4) Test/use the model in real time (webcam)
+
+Run inference with your best checkpoint:
+
+```bash
+python inference.py --checkpoint checkpoints/best_emotion_model.pt --backbone resnet18 --window 30
+```
+
+If you trained with EfficientNet, use:
+
+```bash
+python inference.py --checkpoint checkpoints/best_emotion_model.pt --backbone efficientnet_b0 --window 30
+```
+
+Press `q` in the OpenCV window to quit.
+
+### 5) Quick troubleshooting
+
+- **No face boxes**: lower `--face-conf` (example: `--face-conf 0.3`) or improve lighting.
+- **Very unstable labels**: increase smoothing window (example: `--window 45`).
+- **Backbone mismatch error**: inference backbone must match the one used for training.
+- **Slow performance**: reduce camera resolution and use GPU if available.
+
 ## Setup
 
 Install dependencies:
