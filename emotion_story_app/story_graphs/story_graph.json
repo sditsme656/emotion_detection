@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "title": "The Lantern Path",
+    "start_node": "n1_intro"
+  },
+  "nodes": [
+    {
+      "id": "n1_intro",
+      "type": "narration",
+      "base_text": "At dusk, you find a brass lantern humming beside a forest gate.",
+      "variants": {
+        "happy": "At dusk, you grin as a brass lantern hums beside the forest gate.",
+        "fear": "At dusk, the humming brass lantern makes your hands tremble by the forest gate."
+      },
+      "next": "n2_path"
+    },
+    {
+      "id": "n2_path",
+      "type": "narration",
+      "base_text": "A narrow path divides: one lane bright with fireflies, one swallowed by mist.",
+      "next": "d1_first_choice"
+    },
+    {
+      "id": "d1_first_choice",
+      "type": "decision",
+      "base_text": "The lantern warms in your palm, waiting for your mood to choose.",
+      "choices": [
+        {"label": "Brisk and bold", "to": "n3_bold", "if_emotion_in": ["happy", "surprise"]},
+        {"label": "Careful retreat", "to": "n4_cautious", "if_emotion_in": ["fear", "sad"]},
+        {"label": "Confront the dark", "to": "n5_fierce", "if_emotion_in": ["angry", "disgust"]}
+      ],
+      "fallback_to": "n6_balanced"
+    },
+    {
+      "id": "n3_bold",
+      "type": "narration",
+      "base_text": "You stride into the firefly lane, and hidden bells answer your steps.",
+      "next": "n7_bridge"
+    },
+    {
+      "id": "n4_cautious",
+      "type": "narration",
+      "base_text": "You test every stone, and the mist parts just enough to reveal a bridge.",
+      "next": "n7_bridge"
+    },
+    {
+      "id": "n5_fierce",
+      "type": "narration",
+      "base_text": "You raise the lantern like a shield, and shadows recoil from your glare.",
+      "next": "n7_bridge"
+    },
+    {
+      "id": "n6_balanced",
+      "type": "narration",
+      "base_text": "You breathe, center yourself, and walk where both light and mist overlap.",
+      "next": "n7_bridge"
+    },
+    {
+      "id": "n7_bridge",
+      "type": "narration",
+      "base_text": "At the river bridge, the lantern flickers in rhythm with your expression.",
+      "next": "d2_guardian"
+    },
+    {
+      "id": "d2_guardian",
+      "type": "decision",
+      "base_text": "A stone guardian asks, 'Who crosses with this flame?'",
+      "choices": [
+        {"label": "Joyful oath", "to": "n8_garden", "if_emotion_in": ["happy"]},
+        {"label": "Startled truth", "to": "n9_echo_hall", "if_emotion_in": ["surprise", "fear"]},
+        {"label": "Steady resolve", "to": "n10_workshop", "if_emotion_in": ["neutral", "angry", "disgust", "sad"]}
+      ],
+      "fallback_to": "n10_workshop"
+    },
+    {
+      "id": "n8_garden",
+      "type": "narration",
+      "base_text": "The guardian opens a moonlit garden where singing water lifts your pace.",
+      "next": "n11_tower_base"
+    },
+    {
+      "id": "n9_echo_hall",
+      "type": "narration",
+      "base_text": "You enter an echoing hall where each breath returns as a guiding whisper.",
+      "next": "n11_tower_base"
+    },
+    {
+      "id": "n10_workshop",
+      "type": "narration",
+      "base_text": "You pass through an old workshop, gears turning as if they expected you.",
+      "next": "n11_tower_base"
+    },
+    {
+      "id": "n11_tower_base",
+      "type": "narration",
+      "base_text": "At the tower base, seven sigils glow, each tuned to a different feeling.",
+      "next": "d3_ending"
+    },
+    {
+      "id": "d3_ending",
+      "type": "decision",
+      "base_text": "Choose the sigil your face now carries.",
+      "choices": [
+        {"label": "Radiant ending", "to": "n12_ending_light", "if_emotion_in": ["happy", "surprise"]},
+        {"label": "Quiet ending", "to": "n13_ending_dawn", "if_emotion_in": ["neutral", "sad"]},
+        {"label": "Storm ending", "to": "n14_ending_storm", "if_emotion_in": ["angry", "disgust", "fear"]}
+      ],
+      "fallback_to": "n13_ending_dawn"
+    },
+    {
+      "id": "n12_ending_light",
+      "type": "narration",
+      "base_text": "The tower bursts into constellations, and your lantern becomes a new star.",
+      "next": "n1_intro"
+    },
+    {
+      "id": "n13_ending_dawn",
+      "type": "narration",
+      "base_text": "The tower doors open to a calm dawn, and the forest bows as you pass.",
+      "next": "n1_intro"
+    },
+    {
+      "id": "n14_ending_storm",
+      "type": "narration",
+      "base_text": "Thunder crowns the tower, then fades; in the silence, your path is clear.",
+      "next": "n1_intro"
+    }
+  ]
+}
